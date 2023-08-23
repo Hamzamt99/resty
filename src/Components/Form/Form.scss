@@ -6,6 +6,16 @@ form {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 40px;
+
+  textarea{
+    width: 400px;
+    height: 150px;
+  }
+  input{
+    width: 300px;
+    height: 25px;
+  }
 
   label {
     display: flex;
@@ -25,7 +35,10 @@ form {
           background: #101010;
           transition: 0.5s;
         }
+        
       }
+      
     }
+    
   }
 }

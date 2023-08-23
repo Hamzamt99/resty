@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './App.scss';
 
@@ -10,41 +10,57 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
+import axios from 'axios';
 
-class App extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {},
-    };
+function App() {
+  const [response, setResponse] = useState('')
+  const [header, setHeader] = useState()
+  const [loading, isLoading] = useState(false)
+  const [state, setState] = useState({
+    data: null,
+    requestParams: {},
   }
+  )
+  const callApi = (requestParams) => {
+    if (requestParams.method === 'get') {
+      axios.get(requestParams.url).then(item => {
+        setState(requestParams)
+        setResponse(item)
+        const contentType = item.headers;
+        setHeader(contentType)
+      })
+    }
+    if (requestParams.method === 'post') {
+      axios.post(requestParams.url, requestParams.data).then(item => {
+        setResponse(item)
+      })
 
-  callApi = (requestParams) => {
+    }
+    else if (requestParams.method === 'put') {
+      axios.put(`${requestParams.url}/update/${id}`, data).then(item => {
+        setResponse((`${item.id} has been updated`))
+      })
+    }
+    else if (requestParams.method === 'delete') {
+      axios.delete(`${requestParams.url}/delete/${id}`).then(item => {
+        setResponse(`${item.id} has been deleted`)
+      })
+    }
+
     // mock output
-    const data = {
-      count: 2,
-      results: [
-        {name: 'fake thing 1', url: 'http://fakethings.com/1'},
-        {name: 'fake thing 2', url: 'http://fakethings.com/2'},
-      ],
-    };
-    this.setState({data, requestParams});
   }
 
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <div>Request Method: {this.state.requestParams.method}</div>
-        <div>URL: {this.state.requestParams.url}</div>
-        <Form handleApiCall={this.callApi} />
-        <Results data={this.state.data} />
-        <Footer />
-      </React.Fragment>
-    );
-  }
+  return (
+    <React.Fragment>
+      <Header />
+      <div>Request Method: {state.method}</div>
+      <div>URL: {state.url}</div>
+      <Form handleApiCall={callApi} loading={isLoading} />
+      <Results data={response} header={header} loading={isLoading} />
+      <Footer />
+    </React.Fragment>
+  );
+
 }
 
 export default App;
