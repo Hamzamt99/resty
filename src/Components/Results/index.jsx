@@ -2,7 +2,11 @@ import './style.scss'
 function Results(props) {
   return (
     <section>
-      <pre>{props.data ? JSON.stringify(props.data, undefined, 2) : null}</pre>
+      {
+        props.loading ?
+          (props.data ? <pre>{JSON.stringify(props.data, undefined, 2)}</pre> : 'loading...') :
+          null
+      }
     </section>
   );
 }
