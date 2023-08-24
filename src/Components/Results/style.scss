@@ -1,7 +1,15 @@
-section{
-    pre{
-        font-weight: 600;
-        color: rgb(0, 0, 0);
-        margin-bottom: 20px;
-    }
-}
+// style.scss
+
+.header {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .data {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  

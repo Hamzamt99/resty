@@ -27,6 +27,7 @@ function App() {
         setState(requestParams)
         setResponse(item)
         const contentType = item.headers;
+  
         setHeader(contentType)
       })
     }
