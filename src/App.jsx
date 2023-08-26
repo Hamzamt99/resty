@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './App.scss';
 
@@ -13,43 +13,51 @@ import Results from './Components/Results';
 import axios from 'axios';
 
 function App() {
-  const [response, setResponse] = useState('')
+  const [response, setResponse] = useState({})
   const [header, setHeader] = useState()
   const [loading, isLoading] = useState(false)
-  const [state, setState] = useState({
-    data: null,
-    requestParams: {},
-  }
-  )
+  const [show, setShow] = useState(false)
+  const [state, setState] = useState({})
+
+
+  // re render the page everytime the response update
+
+
   const callApi = (requestParams) => {
-    if (requestParams.method === 'get') {
-      axios.get(requestParams.url).then(item => {
-        setState(requestParams)
-        setResponse(item)
-        const contentType = item.headers;
-  
-        setHeader(contentType)
-      })
-    }
     if (requestParams.method === 'post') {
       axios.post(requestParams.url, requestParams.data).then(item => {
         setResponse(item)
+        setState(requestParams)
       })
 
     }
     else if (requestParams.method === 'put') {
       axios.put(`${requestParams.url}/update/${id}`, data).then(item => {
         setResponse((`${item.id} has been updated`))
+        setState(requestParams)
       })
     }
     else if (requestParams.method === 'delete') {
       axios.delete(`${requestParams.url}/delete/${id}`).then(item => {
         setResponse(`${item.id} has been deleted`)
+        setState(requestParams)
+      })
+    } else {
+      setShow(true)
+      axios.get(requestParams.url).then(item => {
+        const contentType = item.headers;
+        setHeader(contentType)
+        isLoading(true)
+        setResponse(item)
+        setState(requestParams)
       })
     }
-
-    // mock output
   }
+
+  console.log('after', state);
+
+  useEffect(() => {
+  }, [state, response])
 
   return (
     <React.Fragment>
@@ -57,7 +65,10 @@ function App() {
       <div>Request Method: {state.method}</div>
       <div>URL: {state.url}</div>
       <Form handleApiCall={callApi} loading={isLoading} />
-      <Results data={response} header={header} loading={isLoading} />
+      {
+        show &&
+        <Results response={response} header={header} loading={loading} handleApiCall={callApi} />
+      }
       <Footer />
     </React.Fragment>
   );
