@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { response, header, loading, callApi } from '../App'
 import Header from '../Components/Header';
 import Results from '../Components/Results';
 import Form from '../Components/Form';
@@ -10,7 +11,7 @@ test('check if the header is exists', () => {
   expect(loadingText).toBeTruthy();
 });
 test('displays loading text when loading is true', () => {
-  render(<Results loading={true} />);
+  render(<Results response={response} header={header} loading={loading} handleApiCall={callApi} />);
   const loadingText = screen.getByText(/loading.../i);
   expect(loadingText).toBeTruthy();
 });
@@ -28,7 +29,7 @@ test('Form updates method when method is clicked', () => {
   render(<Form />);
 
   fireEvent.click(screen.getByText(/POST/i));
-  
+
   expect(screen.getByText(/POST/i)).toBeTruthy()
 });
 
