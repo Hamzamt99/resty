@@ -19,6 +19,8 @@ function App() {
   // re render the page everytime the response update
 
   const callApi = (requestParams) => {
+    console.log(requestParams);
+    dispatch({ type: 'requestParams', payload: requestParams })
     if (requestParams.method === 'post') {
       axios.post(requestParams.url, requestParams.data).then(item => {
         dispatch({ type: TYPES.method, payload: item })
@@ -60,8 +62,8 @@ function App() {
   return (
     <React.Fragment>
       <Header />
-      <div>Request Method: {state.method}</div>
-      <div>URL: {state.url}</div>
+      <div>Request Method: {state.requestParams.method}</div>
+      <div>URL: {state.requestParams.url}</div>
       <Form handleApiCall={callApi} />
       {
         state.show &&

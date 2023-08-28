@@ -3,7 +3,8 @@ export const INITIAL_STATES = {
     header: {},
     loading: false,
     show: false,
-    state: {}
+    state: {},
+    requestParams: {}
 }
 
 export const reducerHandler = (state, action) => {
@@ -32,6 +33,11 @@ export const reducerHandler = (state, action) => {
             return {
                 ...state,
                 show: true
+            }
+        case 'requestParams':
+            return {
+                ...state,
+                requestParams: action.payload
             }
     }
 }

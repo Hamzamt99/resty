@@ -3,5 +3,6 @@ export const TYPES = {
     notLoading: 'notLoading',
     loading: 'loading',
     header: 'header',
-    show: 'show'
+    show: 'show',
+    requestParams: 'requestParams'
 }
