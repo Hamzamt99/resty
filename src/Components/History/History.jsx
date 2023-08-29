@@ -3,11 +3,12 @@
 import React, { useState } from "react"
 import './style.css'
 export default function History({ state }) {
-    const [selectedHistory, setSelectedHistory] = useState([]); // Local state for selectedHistory
+
+    const [selectedHistory, setSelectedHistory] = useState([]);
 
     const historyHandler = (url) => {
         const historyData = state.history.filter(item => item.requestParams.url === url)
-        setSelectedHistory(historyData); // Update local state
+        setSelectedHistory(historyData); 
     }
 
     return (

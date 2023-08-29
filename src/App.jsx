@@ -19,7 +19,6 @@ function App() {
   const [state, dispatch] = useReducer(reducerHandler, INITIAL_STATES)
 
   // re render the page everytime the response update
-
   const callApi = (requestParams) => {
     dispatch({ type: TYPES.requestParams, payload: requestParams })
     if (requestParams.method === 'post') {
@@ -62,19 +61,18 @@ function App() {
 
   return (
     <React.Fragment>
-      <Header />
-      <div>Request Method: {state.requestParams.method}</div>
-      <div>URL: {state.requestParams.url}</div>
-      <Form handleApiCall={callApi} />
+      <Header data-testid="app-header" />
+      <div data-testid="request-method">Request Method: {state.requestParams.method}</div>
+      <div data-testid="request-url">URL: {state.requestParams.url}</div>
+      <Form data-testid="form-component" handleApiCall={callApi} />
       {
         state.show &&
-        <Results state={state} handleApiCall={callApi} />
+        <Results data-testid="results-component" state={state} handleApiCall={callApi} />
       }
-      <History state={state} />
-      <Footer />
+      <History data-testid="history-component" state={state} />
+      <Footer data-testid="app-footer" />
     </React.Fragment>
   );
-
 }
 
 export default App;
