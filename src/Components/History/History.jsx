@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { useState } from "react"
-
+import './style.css'
 export default function History({ state }) {
     const [selectedHistory, setSelectedHistory] = useState([]); // Local state for selectedHistory
 
@@ -12,6 +12,7 @@ export default function History({ state }) {
 
     return (
         <div>
+            <h1>History</h1>
             {
                 state.history && state.history.map(item => (
                     <div key={item.requestParams.url}>
