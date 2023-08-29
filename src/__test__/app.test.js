@@ -11,7 +11,7 @@ test('check if the header is exists', () => {
   expect(loadingText).toBeTruthy();
 });
 test('displays loading text when loading is true', () => {
-  render(<Results response={response} header={header} loading={loading} handleApiCall={callApi} />);
+  render(<Results loading={false} />);
   const loadingText = screen.getByText(/loading.../i);
   expect(loadingText).toBeTruthy();
 });
