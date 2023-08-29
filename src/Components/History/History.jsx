@@ -1,11 +1,13 @@
 'use strict'
 
-import React from "react"
+import React, { useState } from "react"
 
-export default function History({ state, setState }) {
+export default function History({ state }) {
+    const [selectedHistory, setSelectedHistory] = useState([]); // Local state for selectedHistory
+
     const historyHandler = (url) => {
         const historyData = state.history.filter(item => item.requestParams.url === url)
-        setState({ ...state, selectedHistory: historyData })
+        setSelectedHistory(historyData); // Update local state
     }
 
     return (
@@ -19,7 +21,7 @@ export default function History({ state, setState }) {
                     </div>
                 ))
             }
-            <pre>{JSON.stringify(state.selectedHistory, undefined, 2)}</pre>
+            <pre>{JSON.stringify(selectedHistory, undefined, 2)}</pre>
         </div>
     )
 }
