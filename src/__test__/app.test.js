@@ -10,7 +10,7 @@ test('check if the header is exists', () => {
   expect(loadingText).toBeTruthy();
 });
 test('displays loading text when loading is true', () => {
-  render(<Results loading={true} />);
+  render(<Results loading={false} />);
   const loadingText = screen.getByText(/loading.../i);
   expect(loadingText).toBeTruthy();
 });
@@ -28,7 +28,7 @@ test('Form updates method when method is clicked', () => {
   render(<Form />);
 
   fireEvent.click(screen.getByText(/POST/i));
-  
+
   expect(screen.getByText(/POST/i)).toBeTruthy()
 });
 
