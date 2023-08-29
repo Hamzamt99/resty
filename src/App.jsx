@@ -57,7 +57,10 @@ function App() {
   console.log('after', state);
 
   useEffect(() => {
-  }, [state, response])
+    if (state.method && state.url) {
+      callApi(state)
+    }
+  }, [state])
 
   return (
     <React.Fragment>
