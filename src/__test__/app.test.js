@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { response, header, loading, callApi } from '../App'
 import Header from '../Components/Header';
 import Results from '../Components/Results';
 import Form from '../Components/Form';

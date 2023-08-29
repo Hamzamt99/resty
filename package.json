@@ -14,8 +14,10 @@
   "dependencies": {
     "@testing-library/react": "^14.0.0",
     "axios": "^1.4.0",
+    "msw": "^1.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
     "sass": "^1.66.1",
     "uuid": "^9.0.0"
   },
@@ -30,5 +32,17 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "react-scripts": "^5.0.1",
     "vite": "^4.4.5"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!axios).+\\.js$"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "identity-obj-proxy",
+      "axios": "axios/dist/node/axios.cjs"
+    }
   }
 }

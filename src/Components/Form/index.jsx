@@ -11,10 +11,10 @@ function Form(props) {
       url: e.target.url.value,
       data: e.target.text.value,
     };
-    
+
     props.handleApiCall(formData);
   };
-  
+
 
   const checkMethod = (e) => {
     setvalue(e.target.id);
