@@ -4,7 +4,9 @@ export const INITIAL_STATES = {
     loading: false,
     show: false,
     state: {},
-    requestParams: {}
+    requestParams: {},
+    history: [],
+
 }
 
 export const reducerHandler = (state, action) => {
@@ -12,7 +14,8 @@ export const reducerHandler = (state, action) => {
         case 'method':
             return {
                 ...state,
-                response: action.payload
+                response: action.payload,
+                history: [...state.history, action.payload]
             }
         case 'notLoading':
             return {
@@ -37,7 +40,8 @@ export const reducerHandler = (state, action) => {
         case 'requestParams':
             return {
                 ...state,
-                requestParams: action.payload
+                requestParams: action.payload,
+                // history: [...state.history, action.payload]
             }
     }
 }

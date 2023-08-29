@@ -10,32 +10,33 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
+import History from './Components/History/History';
 import axios from 'axios';
 import { TYPES } from './Components/Reducer/reducerTypes'
 import { INITIAL_STATES, reducerHandler } from './Components/Reducer/Reducer'
 function App() {
+
   const [state, dispatch] = useReducer(reducerHandler, INITIAL_STATES)
 
   // re render the page everytime the response update
 
   const callApi = (requestParams) => {
-    console.log(requestParams);
-    dispatch({ type: 'requestParams', payload: requestParams })
+    dispatch({ type: TYPES.requestParams, payload: requestParams })
     if (requestParams.method === 'post') {
       axios.post(requestParams.url, requestParams.data).then(item => {
-        dispatch({ type: TYPES.method, payload: item })
+        dispatch({ type: TYPES.method, payload: { item, requestParams } })
 
       })
 
     }
     else if (requestParams.method === 'put') {
       axios.put(`${requestParams.url}/update/${id}`, data).then(item => {
-        dispatch({ type: TYPES.method, payload: item })
+        dispatch({ type: TYPES.method, payload: { item, requestParams } })
       })
     }
     else if (requestParams.method === 'delete') {
       axios.delete(`${requestParams.url}/delete/${id}`).then(item => {
-        dispatch({ type: TYPES.method, payload: item })
+        dispatch({ type: TYPES.method, payload: { item, requestParams } })
 
       })
     } else {
@@ -46,10 +47,10 @@ function App() {
           const contentType = item.headers;
           dispatch({ type: TYPES.header, payload: contentType })
           dispatch({ type: TYPES.notLoading })
-          dispatch({ type: TYPES.method, payload: item })
+          dispatch({ type: TYPES.method, payload: { item, requestParams } })
 
         })
-      }, 3000)
+      }, 1000)
     }
   }
 
@@ -69,6 +70,7 @@ function App() {
         state.show &&
         <Results state={state} handleApiCall={callApi} />
       }
+      <History state={state} />
       <Footer />
     </React.Fragment>
   );
