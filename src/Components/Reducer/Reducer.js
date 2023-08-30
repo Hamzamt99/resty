@@ -6,7 +6,7 @@ export const INITIAL_STATES = {
     state: {},
     requestParams: {},
     history: [],
-
+    historyData: {}
 }
 
 export const reducerHandler = (state, action) => {
@@ -41,6 +41,12 @@ export const reducerHandler = (state, action) => {
             return {
                 ...state,
                 requestParams: action.payload,
+                // history: [...state.history, action.payload]
+            }
+        case 'data':
+            return {
+                ...state,
+                historyData: action.payload,
                 // history: [...state.history, action.payload]
             }
     }
